@@ -21,7 +21,7 @@
 ## Usage
 ###  Training the CADDY Dynamic graph neural network
 ```
-python train.py --data uci  --n_epoch 20  --lr 0.1  --hidden_size 32  --alpha_ 0.5  --labda_reg 0.0001 --node_dim 16  --edge_agg mean  --ratio 0.3  --anomaly_ratio 0.1
+python train.py --data uci  --n_epoch 20  --lr 0.1  --hidden_size 32  --alpha_ 0.5  --labda_reg 0.0001 --node_dim 16  --edge_agg mean  --ratio 0.3 --dropout 0  --anomaly_ratio 0.1
 ```
 
 ## Requirements
@@ -39,3 +39,17 @@ scikit-learn==1.0.2
 
 ## Command and configurations
 ### General flags
+```{txt}
+optional arguments:
+  -d DATA, --data DATA                       data sources to use
+  --n_epoch N_EPOCH                          number of epochs
+  --lr LR                                    learning rate
+  --hidden_size HIDDEN_SIZE                  dimensions of the model hidden size
+  --alpha_ ALPHA_                            distance factor in spatial encoding
+  --labda_reg LABDA_RRG                      regularized term hyperparameter
+  --node_dim NODE_DIM                        dimensions of the node encoding
+  --edge_agg {mean,had,w1,w2,activate}       Edge Aggregator(EdgeAgg) method
+  --ratia                                    the ratio of training sets
+  --dropout                                  dropout rate
+  --anomaly_ratio                            the ratio of anomalous edges in testing set
+```
