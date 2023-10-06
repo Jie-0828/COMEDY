@@ -1,6 +1,9 @@
 # CADDY: Continuous-time Anomaly Detection in Dynamic Networks
 <!--#### -->
 ## Introduction
+Dynamic network serves as an ideal medium for representing the ever-changing interactions among diverse system entities in the real world. Nevertheless, interactions between system entities sometimes manifest abnormal.These anomalous activities often transpire repeatedly within a brief span, causing system malfunction. Hence, a pivotal task in dynamic network analysis is anomaly detection, which aims to identify the nodes, edges, and subgraphs that exhibit notable deviations from the established, conventional or anticipated ones.
+
+In this paper, we propose a novel \underline{C}ontinuous-time \underline{A}nomaly \underline{D}etection framework in \underline{DY}namic networks (CADDY). Specifically, CADDY first samples valid neighbor nodes to filter out outdated information, and subsequently integrates the attention mechanism and temporal decay function into the message-passing process. This improved aggregation method allows CADDY to capture relevant and up-to-date information about anomaly detection in a more fine-grained manner. Moreover, considering the absence of node attributes in dynamic network datasets, we design a comprehensive node coding strategy that effectively captures nodes' structural and temporal characteristics at different timestamps, serving as inputs for downstream neural networks.
 ![framework](https://github.com/Jie-0828/CADDY/assets/105060483/9c53fa98-7d85-4c49-9a24-4c11cf699764)
 
 ## Dataset and preprocessing
