@@ -6,11 +6,17 @@
 ## Dataset and preprocessing
 
 ### Download the public dataset
-* [HDFS](https://doi.org/10.5281/zenodo.1144100)
+* [UCI Message]([https://doi.org/10.5281/zenodo.1144100](http://konect.cc/networks/opsahl-ucsocial))
   
-* [Gowalla](https://snap.stanford.edu/data/loc-gowalla.html)
+* [Digg]([https://snap.stanford.edu/data/loc-gowalla.html](http://konect.cc/networks/munmun digg reply))
   
-* [Brightkite](http://snap.stanford.edu/data/loc-brightkite.html)
+* [Bitcoin-OTC](http://snap.stanford.edu/data/soc-sign-bitcoin-otc)
+
+* [Bitcoin-Alpha](http://snap.stanford.edu/data/soc-sign-bitcoin-alpha)
+ 
+* [ia-contacts-dublin](https://networkrepository.com/ia-contacts-dublin.php)
+
+* [fb-forum](https://networkrepository.com/fb-forum.php)
 
 ## Usage
 ### Step 0: Prepare Data
@@ -23,19 +29,18 @@ python 0_prepare_data.py --dataset uci
 python 1_train.py --dataset uci --anomaly_per 0.1
 
 
-## Command and configurations
-### General flags
-
 ## Requirements
 * python >= 3.9
 
 * Dependency
 
 ```{bash}
-torch==1.12.0
+torch==1.12.1
 networkx==2.7.1
 tqdm==4.64.0
-numpy==1.25.5
+numpy==1.24.3
 scikit-learn==1.0.2
-random==
 ```
+
+## Command and configurations
+### General flags
