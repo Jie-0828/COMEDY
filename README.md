@@ -8,7 +8,7 @@
 ### Download the public dataset
 * [UCI Message]([https://doi.org/10.5281/zenodo.1144100](http://konect.cc/networks/opsahl-ucsocial))
   
-* [Digg]([https://snap.stanford.edu/data/loc-gowalla.html](http://konect.cc/networks/munmun digg reply))
+* [Digg]([https://snap.stanford.edu/data/loc-gowalla.html](http://konect.cc/networks/munmun digg reply)
   
 * [Bitcoin-OTC](http://snap.stanford.edu/data/soc-sign-bitcoin-otc)
 
