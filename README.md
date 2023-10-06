@@ -19,15 +19,10 @@
 * [fb-forum](https://networkrepository.com/fb-forum.php)
 
 ## Usage
-### Step 0: Prepare Data
+###  Training the CADDY Dynamic graph neural network
 ```
-python 0_prepare_data.py --dataset uci
+python train.py --data uci  --n_epoch 20  --lr 0.1  --hidden_size 32  --encoding_dim 16  --edge_agg mean  --ratio 0.3  --anomaly_ratio 0.1
 ```
-
-### Step 1: Train Model
-```
-python 1_train.py --dataset uci --anomaly_per 0.1
-
 
 ## Requirements
 * python >= 3.9
