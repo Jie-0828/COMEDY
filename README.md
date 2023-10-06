@@ -21,7 +21,7 @@
 ## Usage
 ###  Training the CADDY Dynamic graph neural network
 ```
-python train.py --data uci  --n_epoch 20  --lr 0.1  --hidden_size 32  --encoding_dim 16  --edge_agg mean  --ratio 0.3  --anomaly_ratio 0.1
+python train.py --data uci  --n_epoch 20  --lr 0.1  --hidden_size 32  --alpha_ 0.5  --labda_reg 0.0001 --node_dim 16  --edge_agg mean  --ratio 0.3  --anomaly_ratio 0.1
 ```
 
 ## Requirements
