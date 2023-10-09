@@ -33,7 +33,7 @@ class CADDY(nn.Module):
 
         self.linear_time = nn.Linear(1, self.embedding_dims).to(device)
         self.linear_node = nn.Linear(1, self.embedding_dims).to(device)
-        self.weight = nn.Parameter(torch.FloatTensor(hidden_size, self.embedding_dims)).to(device)
+        self.weight = nn.Parameter(torch.FloatTensor(hidden_size, self.embedding_dims*2)).to(device)
         nn.init.xavier_uniform_(self.weight)
 
     def initialize(self):
@@ -85,7 +85,7 @@ class CADDY(nn.Module):
                         neigh_feat += (time_score*score)*neigh_feat_i
 
             if not self.gcn:
-                combined = node_feat.squeeze(dim=0)+neigh_feat.squeeze(dim=0)#Aggregate its own node features
+                combined = torch.cat([node_feat.squeeze(dim=0), neigh_feat.squeeze(dim=0)])
             else:
                 combined = neigh_feat.squeeze(dim=0)  # Not aggregate its own node features
 
