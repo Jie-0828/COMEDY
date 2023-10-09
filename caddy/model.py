@@ -39,7 +39,7 @@ class CADDY(nn.Module):
     def initialize(self):
         # Initialize an empty graph
         self.graph = nx.Graph()
-        self.adj_time = torch.zeros([self.num_nodes]).to(self.device)  # 上一次进行交互的时间
+        self.adj_time = torch.zeros([self.num_nodes]).to(self.device)  # Saves the time of the last interaction
         self.adj = torch.zeros([self.num_nodes, self.num_nodes]).to(self.device)
 
     def forward(self, edge,label):
