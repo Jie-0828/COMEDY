@@ -30,10 +30,13 @@ def load_data_node(path,dataset):  # file_path,dataset_name
             item_id = int(line[1])
             set_node.add(user_id)
             set_node.add(item_id)
-            if user_id!=item_id and (user_id, item_id) not in dict_edge: #Remove self-loops and repeated edges
-                dict_edge[(user_id, item_id)] = [timestampe]
-            else:
-                dict_edge[(user_id, item_id)].append(timestampe)
+            
+            #Remove self-loops and repeated edges
+            if user_id!=item_id:
+                if (user_id, item_id) not in dict_edge: 
+                    dict_edge[(user_id, item_id)] = [timestampe]
+                else:
+                    dict_edge[(user_id, item_id)].append(timestampe)
 
     #Node reindex
     np_node=np.array(sorted(list(set_node)))
