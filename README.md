@@ -30,7 +30,7 @@ python train.py --data uci  --n_epoch 20  --lr 0.1  --hidden_size 32  --alpha_ 0
 ```
 
 ## Requirements
-* python >= 3.9
+* python >= 3.6
 
 * Dependency
 
