@@ -6,7 +6,7 @@ Dynamic network serves as an ideal medium for representing the ever-changing int
 In this paper, we propose a novel <u>**C**</u>ontinuous-time <u>**A**<u>nomaly <u>**D**<u>etection framework in <u>**DY**<u>namic networks **(CADDY)**. The model can handle directly dynamic networks consisting of continuous timestamped edges at the finest most natural temporal granularity without loss of information to improve the accuracy of anomaly detection. Moreover, considering the absence of node attributes in dynamic network datasets, we design a comprehensive node coding strategy that effectively captures nodes' structural and temporal characteristics at different timestamps, serving as inputs for downstream neural networks.
 
  The framework of CADDY consists of three main components: the spatial-temporal encoding (green dotted box), the attention-temporal aggregator (red dotted box), and the anomaly detector (purple dotted box). The attention-temporal aggregator includes two key modules, namely sampling valid neighbors (red module) and the attention-temporal module (blue module). 
-![framework](https://github.com/Jie-0828/CADDY/assets/105060483/c331f486-fea2-4d9c-ad78-3a1a5c1d960e)
+![framework](https://github.com/Jie-0828/CADDY/framework.png)
 
 ## Dataset and preprocessing
 
