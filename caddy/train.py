@@ -21,7 +21,7 @@ from distance import BFS
 from spatial_encoding import get_GC
 from learn_graph import train_model, evaluate
 from model import CADDY
-from create_neg_edge import *
+from negative_sample import *
 
 # Argument and global variables
 parser = argparse.ArgumentParser('Interface for TP-GCN experiments on graph classification task')
