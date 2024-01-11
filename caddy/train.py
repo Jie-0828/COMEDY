@@ -106,7 +106,7 @@ if not os.path.exists(dataset+'_train_'+str(args.threshold)+str(ratio)+'.pkl'):
     del adj_time
 
 
-with open(dataset+'_train_'+str(args.threshold)+str(args.divide)+'.pkl', "rb") as tf:
+with open(dataset+'_train_'+str(args.threshold)+str(ratio)+'.pkl', "rb") as tf:
     dict_gc=pickle.load(tf)
 
 print('Model with Supervised Learning')
@@ -119,14 +119,14 @@ for epoch in range(args.n_epoch):
 
 # Testing
 print('Testing')
-test_edge,test_labels,set_node_test=negative_sample_test(test_edge_pos,edge_order,test_radio)
-if not os.path.exists(dataset+'_test_'+str(test_radio)+"_"+str(args.threshold)+str(args.divide)+'.pkl'):
+test_edge,test_labels,set_node_test=negative_sample_test(test_edge_pos,edge_order,anomaly_radio)
+if not os.path.exists(dataset+'_test_'+str(anomaly_radio)+"_"+str(args.threshold)+str(args.divide)+'.pkl'):
     print('spatial encoding')
     G=caddy.graph
     adj_time=caddy.adj_time
     get_GC(test_edge,test_labels,G,adj_time,dataset,args.threshold,bfs,ratio,anomaly_radio,flag='test')
 
-with open(dataset+'_test_'+str(test_radio)+"_"+str(args.threshold)+str(args.divide)+'.pkl', "rb") as tf:
+with open(dataset+'_test_'+str(anomaly_radio)+"_"+str(args.threshold)+str(ratio)+'.pkl', "rb") as tf:
     dict_gc_test = pickle.load(tf)
 
 time.sleep(0.01)
