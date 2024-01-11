@@ -17,45 +17,26 @@ def negative_sample(old_edges,all_edge):
     list_node=list(set_node)
     list_time=list(set_time)
 
-    # Randomly sample positive edges and generate negative edges
+    list_edge_new=[]
+    labels=[]
     print('negative_creation')
     for item in tqdm(old_edges):
         index = 0
         while index < 1:
             new_edge=item[:2]
             new_edge[random.randrange(2)] = list_node[random.randrange(len(set_node))]
-            new_time=list_time[random.randrange(len(set_time))]
-            if new_edge not in all_edge and new_edge !=item[:2]:
-                new_edge_ = new_edge + [new_time]
+            old_time=item[2]
+            # new_time=list_time[random.randrange(len(set_time))]
+            if new_edge not in old_edges and new_edge !=item[:2]:
+                new_edge_ = new_edge + [old_time]
                 list_edge.append(new_edge_)
+                list_edge_new.append(item)
+                list_edge_new.append(new_edge_)
+                labels.append(0)
+                labels.append(1)
                 index += 1
 
-    #Positive and negative sample synthesis training set
-    random.shuffle(list_edge)
-    list_edge_new=old_edges+list_edge
-    dict_edge={}
-    labels=[]
-    edge_order=[]
-    for i in range(len(list_edge_new)):
-        if i <len(old_edges):
-            label=0
-        else:
-            label=1
-        timestampe=list_edge_new[i][2]
-        user_id=list_edge_new[i][0]
-        item_id=list_edge_new[i][1]
-        if timestampe not in dict_edge:
-            dict_edge[timestampe]=[[user_id,item_id,timestampe,label]]
-        else:
-            dict_edge[timestampe].append([user_id, item_id, timestampe,label])
-
-    for key in sorted(dict_edge.keys()):
-        random.shuffle(dict_edge[key])
-        for i in dict_edge[key]:
-            edge_order.append(i[:3])
-            labels.append(i[3])
-
-    return edge_order,labels,set_node
+    return list_edge_new,labels,set_node
 
 def negative_sample_test(old_edges,all_edge,test_radio):
     list_edge=[]
@@ -68,19 +49,18 @@ def negative_sample_test(old_edges,all_edge,test_radio):
     list_node=list(set_node)
     list_time=list(set_time)
 
-    # Randomly sample positive edges and generate negative edges
     for item in old_edges:
         index = 0
         while index < 1:
             new_edge=item[:2]
             new_edge[random.randrange(2)] = list_node[random.randrange(len(set_node))]
-            new_time=list_time[random.randrange(len(set_time))]
-            new_edge_ = new_edge+[new_time]
-            if new_edge_ not in all_edge and new_edge_ !=item:
+            # new_time=list_time[random.randrange(len(set_time))]
+            old_time = item[2]
+            new_edge_ = new_edge+[old_time]
+            if new_edge_ not in old_edges and new_edge_ !=item:
                 list_edge.append(new_edge_)
                 index += 1
 
-    # The test set selects only negative edges with a certain proportion of exceptions
     random.shuffle(list_edge)
     list_edge_new = old_edges + list_edge[:int(len(list_edge)*test_radio)]
     dict_edge = {}
