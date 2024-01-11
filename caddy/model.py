@@ -48,7 +48,7 @@ class CADDY(nn.Module):
         self.feature_bank = {}  # historical information bank
         self.adj_time = torch.zeros([self.num_nodes]).to(self.device)  # record The time of the last interaction
         self.graph=nx.DiGraph()
-    def forward(self, edge,label,dict_gc):
+    def forward(self, edge,dict_gc):
         time = edge[2]
         self.edge=edge
         self.graph.add_nodes_from(edge[:2])
@@ -60,8 +60,7 @@ class CADDY(nn.Module):
             if time_interval > self.threshold and node != edge[0] and node != edge[1]:
                 self.graph.remove_node(node)
 
-        if label == 0:
-            self.graph.add_edge(edge[0], edge[1])
+        if not edge[3]: self.graph.add_edge(edge[0], edge[1])
 
         for i in range(2):
             if edge[i] not in self.feature_bank:
