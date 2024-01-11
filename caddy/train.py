@@ -26,25 +26,23 @@ from create_neg_edge import *
 # Argument and global variables
 parser = argparse.ArgumentParser('Interface for TP-GCN experiments on graph classification task')
 parser.add_argument('-d', '--data', type=str, help='dataset to use, bitcoinotc, UCI,DIGG,bitcoinalpha or Reddit', default='fb-forum')
-parser.add_argument('--bs', type=int, default=32, help='batch_size')
 parser.add_argument('--n_epoch', type=int, default=10, help='number of epochs')
 parser.add_argument('--lr', type=float, default=0.1, help='learning rate')
 parser.add_argument('--hidden_size', type=int, default=32, help='Dimentions of the node hidden size')
-parser.add_argument('--node_dims', type=int, default=32, help='Dimentions of the time embedding')
+parser.add_argument('--node_dim', type=int, default=8, help='Dimentions of the time embedding')
 parser.add_argument('--edge_agg', type=str, choices=['mean', 'had', 'w1','w2', 'activate'], help='EdgeAgg method', default='mean')
-parser.add_argument('--divide', type=str,help='the ratio of training sets', default=0.3)
+parser.add_argument('--ratio', type=str,help='the ratio of training sets', default=0.3)
 parser.add_argument('-dropout', type=float, help='dropout', default=0)
-parser.add_argument('-threshold', type=float, help='temporal neighbor threshold', default=10000)
-parser.add_argument('-test_radio', type=float, help='test_radio', default=0.1)
-parser.add_argument('-window_size', type=float, help='window_size', default=10)
+parser.add_argument('-anomaly_radio', type=float, help='test_radio', default=0.1)
+parser.add_argument('-threshold', type=float, help='inactive nodes threshold', default=10000)
+parser.add_argument('-window_size', type=float, help='the queue size of the historical information bank', default=10)
 
 args = parser.parse_args()
 dataset = args.data
-divide=args.divide
-embedding_dims=args.embedding_dims
+ratio=args.ratio
+node_dim=args.node_dim
 hidden_size=args.hidden_size
-batch_size=args.bs
-test_radio=args.test_radio
+anomaly_radio=args.anomaly_radio
 print(args)
 
 #Random seed
@@ -71,8 +69,8 @@ elif dataset == 'fb-forum':
 
 edge_order,num_nodes= dataloader.load_data_node(path,dataset)
 # random.shuffle(data)
-train_edge_pos=edge_order[:int(len(edge_order)*divide)]
-test_edge_pos=edge_order[int(len(edge_order)*divide):]
+train_edge_pos=edge_order[:int(len(edge_order)*ratio)]
+test_edge_pos=edge_order[int(len(edge_order)*ratio):]
 
 print('train：'+str(len(train_edge_pos))+','+'test：'+str(len(test_edge_pos)))
 num_labels = 2  # Binary classification task
@@ -80,9 +78,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 # Create the model and initialize it
-caddy = CADDY(num_nodes,embedding_dims,hidden_size,args.dropout,device,args.threshold,args.window_size).to(device)
+caddy = CADDY(num_nodes,node_dim,hidden_size,args.dropout,device,args.threshold,args.window_size).to(device)
 if args.edge_agg != "activation" and args.edge_agg != "origin":
-    # classification = Classification((embedding_dims+1), num_labels).to(device) # Create a classifier
+    # classification = Classification((node_dim+1), num_labels).to(device) # Create a classifier
     classification = Classification(hidden_size, 2).to(device) # Create a classifier
 else:
     classification = Classification(hidden_size*2, 1).to(device)  # Create a classifier
@@ -99,12 +97,12 @@ optimizer = torch.optim.Adam(params, lr=args.lr)# Create optimizer
 
 # Training
 train_edge,train_labels,set_node=negative_sample(train_edge_pos,edge_order)
-if not os.path.exists(dataset+'_train_'+str(args.threshold)+str(args.divide)+'.pkl'):
+if not os.path.exists(dataset+'_train_'+str(args.threshold)+str(ratio)+'.pkl'):
     caddy.initialize()
     print('spatial encoding')
     G=caddy.graph
     adj_time=caddy.adj_time
-    get_GC(train_edge,train_labels,G,adj_time,dataset,args.threshold,bfs,divide,test_radio,flag='train')
+    get_GC(train_edge,train_labels,G,adj_time,dataset,args.threshold,bfs,ratio,anomaly_radio,flag='train')
     del adj_time
 
 
@@ -126,7 +124,7 @@ if not os.path.exists(dataset+'_test_'+str(test_radio)+"_"+str(args.threshold)+s
     print('spatial encoding')
     G=caddy.graph
     adj_time=caddy.adj_time
-    get_GC(test_edge,test_labels,G,adj_time,dataset,args.threshold,bfs,divide,test_radio,flag='test')
+    get_GC(test_edge,test_labels,G,adj_time,dataset,args.threshold,bfs,ratio,anomaly_radio,flag='test')
 
 with open(dataset+'_test_'+str(test_radio)+"_"+str(args.threshold)+str(args.divide)+'.pkl', "rb") as tf:
     dict_gc_test = pickle.load(tf)
