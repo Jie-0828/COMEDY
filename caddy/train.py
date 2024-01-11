@@ -18,7 +18,7 @@ import dataloader
 from tqdm import tqdm
 from classifier import Classification
 from distance import BFS
-from get_gc import get_GC
+from spatial_encoding import get_GC
 from learn_graph import train_model, evaluate
 from model import CADDY
 from create_neg_edge import *
