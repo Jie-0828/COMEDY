@@ -3,9 +3,9 @@
 ## Introduction
 Dynamic network serves as an ideal medium for representing the ever-changing interactions among diverse system entities in the real world. Nevertheless, interactions between system entities sometimes manifest abnormal.These anomalous activities often transpire repeatedly within a brief span, causing system malfunction. Hence, a pivotal task in dynamic network analysis is anomaly detection, which aims to identify the nodes, edges, and subgraphs that exhibit notable deviations from the established, conventional or anticipated ones.
 
-In this paper, we propose a novel <u>**C**</u>ontinuous-time <u>**A**<u>nomaly <u>**D**<u>etection framework in <u>**DY**<u>namic networks **(CADDY)**. The model can handle directly dynamic networks consisting of continuous timestamped edges at the finest most natural temporal granularity without loss of information to improve the accuracy of anomaly detection. Moreover, considering the absence of node attributes in dynamic network datasets, we design a comprehensive node coding strategy that effectively captures nodes' structural and temporal characteristics at different timestamps, serving as inputs for downstream neural networks.
+In this paper, we propose a novel <u>**C**</u>ontinuous-time <u>**A**<u>nomaly <u>**D**<u>etection framework in <u>**DY**<u>namic networks **(CADDY)**. This model disigns outdated information filter to filters out the outdated information by removing the inactive nodes in the current dynamic network and combines the {\em attention-temporal module} with the {\em historical information bank} for anomaly detection at the finest most natural temporal granularity without loss of information. Moreover, considering the absence of node attributes in dynamic network datasets, we design a comprehensive node coding strategy. This encoding method utilizes node centrality and relative interaction time to represent node features, serving as inputs for downstream neural networks.
 
- The framework of CADDY consists of three main components: the spatial-temporal encoding (green dotted box), the attention-temporal aggregator (red dotted box), and the anomaly detector (purple dotted box). The attention-temporal aggregator includes two key modules, namely sampling valid neighbors (red module) and the attention-temporal module (blue module). 
+ The framework of CADDY consists of four main components: the outdated information filter(blue box), the spatial-temporal encoding (green dotted box), the attention-temporal aggregator (red dotted box), and the anomaly detector (purple dotted box). Within the attention-temporal aggregator, the historical information bank (yellow oval box) is used to store historical interactive information of nodes. 
 ![framework](framework.png)
 
 ## Dataset and preprocessing
@@ -26,7 +26,7 @@ In this paper, we propose a novel <u>**C**</u>ontinuous-time <u>**A**<u>nomaly <
 ## Usage
 ###  Training the CADDY Dynamic graph neural network
 ```
-python train.py --data uci  --n_epoch 20  --lr 0.1  --hidden_size 32  --alpha_ 0.5  --labda_reg 0.0001 --node_dim 16  --edge_agg mean  --ratio 0.3 --dropout 0  --anomaly_ratio 0.1
+python train.py --data uci  --n_epoch 15  --lr 0.1  --hidden_size 32  --node_dim 8  --edge_agg mean  --ratio 0.3 --dropout 0  --anomaly_ratio 0.1  --threshold 10000  --window_size 5
 ```
 
 ## Requirements
@@ -50,11 +50,11 @@ optional arguments:
   --n_epoch N_EPOCH                          number of epochs
   --lr LR                                    learning rate
   --hidden_size HIDDEN_SIZE                  dimensions of the model hidden size
-  --alpha_ ALPHA_                            distance factor in spatial encoding
-  --labda_reg LABDA_RRG                      regularized term hyperparameter
   --node_dim NODE_DIM                        dimensions of the node encoding
   --edge_agg {mean,had,w1,w2,activate}       Edge Aggregator(EdgeAgg) method
   --ratia                                    the ratio of training sets
   --dropout                                  dropout rate
   --anomaly_ratio                            the ratio of anomalous edges in testing set
+  --threshold                                inactive nodes threshold
+  --window_size                              the queue size of historical information bank
 ```
