@@ -19,7 +19,7 @@ from tqdm import tqdm
 
 from decayer import Decayer
 from attention import Attention
-from get_gc import get_in_neighbors
+from spatial_encoding import get_in_neighbors
 from time2vec import Time2Vec
 
 
