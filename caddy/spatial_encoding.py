@@ -4,7 +4,6 @@ import numpy as np
 import torch
 
 import dataloader
-from create_neg_edge import negative_sample
 from tqdm import tqdm
 import pickle
 
