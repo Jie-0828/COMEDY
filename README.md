@@ -50,7 +50,7 @@ optional arguments:
   --hidden_size HIDDEN_SIZE                  dimensions of the model hidden size
   --node_dim NODE_DIM                        dimensions of the node encoding
   --edge_agg {mean,had,w1,w2,activate}       Edge Aggregator(EdgeAgg) method
-  --ratia                                    the ratio of training sets
+  --ratio                                    the ratio of training sets
   --dropout                                  dropout rate
   --anomaly_ratio                            the ratio of anomalous edges in testing set
   --threshold                                inactive nodes threshold
