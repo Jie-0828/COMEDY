@@ -24,21 +24,21 @@ from time2vec import Time2Vec
 
 
 class CADDY(nn.Module):
-    def __init__(self, num_nodes, embedding_dims, hidden_size, dropout, device,threshold,window_size, gcn=False):
+    def __init__(self, num_nodes, node_dim, hidden_size, dropout, device,threshold,window_size, gcn=False):
         super(Model, self).__init__()
         self.decayer=Decayer(2)
         self.decayer_feature = Decayer(2,"rev")
         self.num_nodes = num_nodes
-        self.embedding_dims = embedding_dims
-        self.attention = Attention(self.embedding_dims, self.embedding_dims,embedding_dims).to(device)
+        self.node_dim = node_dim
+        self.attention = Attention(self.node_dim, self.node_dim,node_dim).to(device)
         self.gcn = gcn
         self.device = device
         self.threshold =threshold
         self.window_size = window_size  # The length of the feature queue
-        self.linear_time = nn.Linear(1, embedding_dims).to(device)
-        # self.time_encode = TimeEncode(embedding_dims)
-        self.linear_node = nn.Linear(1, embedding_dims).to(device)
-        self.weight = nn.Parameter(torch.FloatTensor(hidden_size, self.embedding_dims*2)).to(device)
+        self.linear_time = nn.Linear(1, node_dim).to(device)
+        # self.time_encode = TimeEncode(node_dim)
+        self.linear_node = nn.Linear(1, node_dim).to(device)
+        self.weight = nn.Parameter(torch.FloatTensor(hidden_size, self.node_dim*2)).to(device)
         nn.init.xavier_uniform_(self.weight)
         self.edge=0#Record the current interactive edge
         self.feat=0#Record the current node features
@@ -70,7 +70,7 @@ class CADDY(nn.Module):
                 self.feature_bank[edge[i]]["time"] = deque(maxlen=self.window_size)
 
 
-            neigh_feat = torch.zeros(self.embedding_dims).to(self.device).unsqueeze(dim=0)
+            neigh_feat = torch.zeros(self.node_dim).to(self.device).unsqueeze(dim=0)
             temp_node = self.linear_time(torch.abs(torch.Tensor([time-self.adj_time[edge[i]]])).to(self.device))  # 时间编码
             eff_tar = self.linear_node(torch.Tensor([dict_gc[int(edge[i])]]).to(self.device))
             node_feat =eff_tar.unsqueeze(dim=0)+temp_node.unsqueeze(dim=0)
@@ -98,11 +98,10 @@ class CADDY(nn.Module):
                 combined = torch.cat([node_feat.squeeze(dim=0), neigh_feat.squeeze(dim=0)])
                 # combined = node_feat.squeeze(dim=0)+ neigh_feat.squeeze(dim=0)
             else:
-                combined = neigh_feat.squeeze(dim=0)  # 不聚合自身节点特征
+                combined = neigh_feat.squeeze(dim=0)
                 # self.feature[edge[i]] += combined
 
-            #将队列之前的所有的特征按时间衰减相加，在加上当前的节点特征
-            fearure_i = torch.zeros(self.embedding_dims*2).to(self.device)
+            fearure_i = torch.zeros(self.node_dim*2).to(self.device)
             for index in range(len(self.feature_bank[edge[i]]["feature"])):
                 weight=self.decayer_feature(torch.FloatTensor([time - self.feature_bank[edge[i]]["time"][index]]).to(self.device))
                 fearure_i+=(weight)*self.feature_bank[edge[i]]["feature"][index]
