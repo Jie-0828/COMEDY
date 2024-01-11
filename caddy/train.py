@@ -68,7 +68,7 @@ elif dataset == 'bitcoinalpha':
 elif dataset == 'ia-contacts_dublin':
     path = r'dataset\ia-contacts_dublin.edges'
 elif dataset == 'fb-forum':
-    path = r'D:\model_C\dataset\fb-forum\fb-forum_old.edges'
+    path = r'dataset\fb-forum_old.edges'
 
 
 edge_order,num_nodes= dataloader.load_data_node(path,dataset)
