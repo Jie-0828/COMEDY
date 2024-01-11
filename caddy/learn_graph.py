@@ -6,18 +6,16 @@ import torch.nn.functional as F
 
 from edge_agg import edge_agg_function
 from model import *
-from tqdm import tqdm
+from tqdm import tqdm, trange
 
 
-def evaluate(test_edge,test_labels,caddy, detector, edge_agg):
+def evaluate(test_edge,test_labels,model_, classification, edge_agg,dict_gc_test):
     """
     Test the performance of the model
     Parameters:
-        dataset: test_edge,test_labels
-        caddy：Well trained caddy model object
-        detector: Well trained anoamly detector object
-        optimizer:Adam optimizer
-        edge_agg: EdgeAgg function
+        datacenter: datacenter object
+        graphSage：Well trained model object
+        classification: Well trained classificator object
     """
     with torch.no_grad():
         predicts_test_all = []  # Store the model prediction results
@@ -26,64 +24,53 @@ def evaluate(test_edge,test_labels,caddy, detector, edge_agg):
         pbar = tqdm(range(len(test_edge)), total=len(test_edge))
         for index in pbar:
             edge = test_edge[index]
-            embeddings = caddy(edge,test_labels[index])
-            edge_embed = edge_agg_function(edge_agg, embeddings).view(1, -1)#Converted to edge embedding
+            dict_gc = dict_gc_test[index]
+            embeddings = model_(edge,test_labels[index],dict_gc)
+            edge_embed = edge_agg_function(edge_agg, embeddings).view(1, -1)
 
-            logists_edge = detector(edge_embed)
+            logists_edge = torch.softmax(classification(edge_embed),1)
+            test_probabilities_np = logists_edge[:, 1]
+
 
             _, predicts_test = torch.max(logists_edge, 1)
             predicts_test_all.append(predicts_test.data[0].cpu())
-            predicts_socre_all.append(logists_edge[0][1].cpu())
+            predicts_socre_all.append(test_probabilities_np[0].cpu())
+
+
     return predicts_socre_all,predicts_test_all
 
-def train_model(train_edge,train_labels,caddy,optimizer,detector,device,edge_agg,lambda_reg):
-    """
-    Traing the caddy and anomaly detector
-    Parameters:
-        dataset: train_edge,train_labels
-        caddy：caddy model object
-        detector: anoamly detector object
-        optimizer:Adam optimizer
-        edge_agg: EdgeAgg function
-    """
-    models = [caddy,detector]
-    params = []
-    for model in models:
-        for param in model.parameters():
-            if param.requires_grad:
-                params.append(param)
+def train_model(train_labels,train_edge,model_,optimizer,classification,device,edge_agg,dict_gc_all,models):
+
+    criterion=nn.CrossEntropyLoss()
 
     optimizer.zero_grad()
     for model in models:
         model.zero_grad()
-
     loss_all = 0
+
+
     pbar = tqdm(range(len(train_edge)), total =len(train_edge))
     for index in pbar:
         edge=train_edge[index]
-        embeddings=caddy(edge,train_labels[index])
-        edge_embed=edge_agg_function(edge_agg,embeddings).view(1,-1)#Node embedding is converted to edge embedding
+        dict_gc=dict_gc_all[index]
+        embeddings=model_(edge,train_labels[index],dict_gc)
+        edge_embed=edge_agg_function(edge_agg,embeddings).view(1,-1)
 
-        logists_edge = detector(edge_embed)#anomaly detection
-        loss_edge = -torch.sum(logists_edge[range(logists_edge.size(0)), train_labels[index]], 0)
+        logists_edge = classification(edge_embed)
 
-        regularization_loss = 0
-        for model in models:
-            for param in model.parameters():
-                regularization_loss += torch.sum(abs(param))#regularization
+        label=torch.LongTensor([train_labels[index]]).to(device)
+        loss_edge = criterion(logists_edge,label)
 
         assert not torch.isnan(loss_edge).any()
-        loss=(loss_edge+lambda_reg*regularization_loss)
-        loss_all+=loss
-
-        loss.backward()
+        loss_all+=loss_edge
+        loss_edge.backward()
 
 
     for model in models:
         nn.utils.clip_grad_norm_(model.parameters(), 5)
     optimizer.step()
 
-    return loss_all, caddy,detector
+    return loss_all, model_,classification
 
 
 
