@@ -25,7 +25,7 @@ from time2vec import Time2Vec
 
 class CADDY(nn.Module):
     def __init__(self, num_nodes, node_dim, hidden_size, dropout, device,threshold,window_size, gcn=False):
-        super(Model, self).__init__()
+        super(CADDY, self).__init__()
         self.decayer=Decayer(2)
         self.decayer_feature = Decayer(2,"rev")
         self.num_nodes = num_nodes
