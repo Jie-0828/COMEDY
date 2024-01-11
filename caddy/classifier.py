@@ -14,6 +14,7 @@ class Classification(nn.Module):
     def __init__(self, input_size, num_classes):
         super(Classification, self).__init__()
         self.fc1 = nn.Linear(input_size, num_classes)
+        # self.fc2 = nn.Linear(input_size, num_classes)
         self.init_params()
 
     def init_params(self):
@@ -22,5 +23,6 @@ class Classification(nn.Module):
                 nn.init.xavier_uniform_(param)
 
     def forward(self, x):
-        logists = torch.log_softmax(self.fc1(x), 1)
+        logists=self.fc1(x)
         return logists
+
