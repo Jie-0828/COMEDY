@@ -120,7 +120,7 @@ for epoch in range(args.n_epoch):
 # Testing
 print('Testing')
 test_edge,test_labels,set_node_test=negative_sample_test(test_edge_pos,edge_order,anomaly_radio)
-if not os.path.exists(dataset+'_test_'+str(anomaly_radio)+"_"+str(args.threshold)+str(args.divide)+'.pkl'):
+if not os.path.exists(dataset+'_test_'+str(anomaly_radio)+"_"+str(args.threshold)+str(ratio)+'.pkl'):
     print('spatial encoding')
     G=caddy.graph
     adj_time=caddy.adj_time
