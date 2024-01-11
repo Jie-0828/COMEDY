@@ -23,9 +23,7 @@ def get_GC(train_edge,train_labels,G,adj_time,dataset,threshold,bfs,divide,test_
             if time_interval > threshold and node != edge[0] and node != edge[1]:
                 G.remove_node(node)
 
-        if train_labels[index]==0:
-            G.add_edge(edge[0], edge[1])
-
+        if not train_labels[index]: G.add_edge(edge[0], edge[1])
 
         neighs_index_all = edge[:2]+get_in_neighbors(edge[0],G)+get_in_neighbors(edge[1],G)
         dict_gc = {}
