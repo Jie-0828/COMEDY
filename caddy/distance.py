@@ -5,7 +5,7 @@ import networkx as nx
 from scipy.sparse import csr_matrix
 from collections import deque
 
-from get_gc import get_in_neighbors, get_out_neighbors
+from spatial_encoding import get_in_neighbors, get_out_neighbors
 
 
 class BFS:
