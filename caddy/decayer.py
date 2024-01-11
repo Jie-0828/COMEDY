@@ -6,6 +6,7 @@ class Decayer(nn.Module):
     def __init__(self, w, decay_method='exp'):
         super(Decayer,self).__init__()
         self.decay_method = decay_method
+        # self.linear = nn.Linear(1,1,False)
         self.w = w
 
     def exponetial_decay(self, delta_t):
