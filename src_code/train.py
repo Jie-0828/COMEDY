@@ -43,7 +43,7 @@ torch.manual_seed(seed)
 torch.cuda.manual_seed_all(seed)
 
 # Load dataset
-path = r''  # dataset pathpath
+path = r''  # dataset path
 
 
 #Processing dataset
