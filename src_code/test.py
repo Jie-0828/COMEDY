@@ -28,7 +28,7 @@ torch.cuda.manual_seed_all(seed)
 
 
 # Load dataset
-path = r'D:\model_C\dataset\UCI\out.opsahl-ucsocial'  # dataset pathpath
+path = r''  # dataset pathpath
 
 edge_order,list_time_pos,set_node= dataloader.load_data_node(path,args.data)
 train_edge_pos=edge_order[:int(len(edge_order)*args.divide)]
