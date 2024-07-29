@@ -43,7 +43,7 @@ torch.manual_seed(seed)
 torch.cuda.manual_seed_all(seed)
 
 # Load dataset
-path = r'D:\model_C\dataset\UCI\out.opsahl-ucsocial'  # dataset pathpath
+path = r''  # dataset pathpath
 
 
 #Processing dataset
