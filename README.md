@@ -1,9 +1,9 @@
-# CADDY: Continuous-time Anomaly Detection in Dynamic Networks
+# COMEDY: Continuous-time Anomalous Edge Detection in Dynamic Networks
 <!--#### -->
 ## Introduction
-To address anomaly detection in dynamic networks, in this paper, we propose a novel <u>**C**</u>ontinuous-time <u>**A**<u>nomaly <u>**D**<u>etection framework in <u>**DY**<u>namic networks **(CADDY)**. This model disigns outdated information filter to filters out the outdated information by removing the inactive nodes in the current dynamic network and combines the *attention-temporal module* with the *historical information bank* for anomaly detection at the finest most natural temporal granularity without loss of information. Moreover, considering the absence of node attributes in dynamic network datasets, we design a comprehensive node coding strategy. This encoding method utilizes node centrality and relative interaction time to represent node features, serving as inputs for downstream neural networks.
+To address anomalous edge detection in dynamic networks, in this paper, we propose a novel  <u>**C**<u>ontinuous-time An <u>**OM**<u>aly  <u>**E**<u>dge detection framework in  <u>**DY**<u>namic networks **(COMEDY)**. This framework features a specialized filter to identify and exclude outdated information from inactive nodes while preserving historical interaction information within a specific time window. Coupled with an attention mechanism and a temporal decay function, the network enhances its ability to extract coupled spatial-temporal information among nodes. Secondly, COMEDY employs tailored negative sampling strategies specifically for distinct types of real-world anomalies. These strategies enhance the model's ability to generalize across different scenarios and detect nuanced abnormalities. Moreover, considering the absence of node attributes in dynamic network datasets, we introduce a general node coding strategy suitable for continuous-time graph neural networks. A key innovation is the incorporation of node gravity centrality as a form of spatial coding. This approach provides a comprehensive representation of the nodes' connection patterns, enhancing the model’s capacity to understand and interpret complex structural dynamics within the graph.
 
- The framework of CADDY consists of four main components: the outdated information filter(blue box), the spatial-temporal encoding (green dotted box), the attention-temporal aggregator (red dotted box), and the anomaly detector (purple dotted box). Within the attention-temporal aggregator, the historical information bank (yellow oval box) is used to store historical interactive information of nodes. 
+The framework of COMEDY consists of four main components: the outdated information filter (blue box), the spatial-temporal encoding (green box), the attention-temporal aggregator (yellow box), and the anomaly detector (purple box). Below the overall architecture, index with (a). Below the Sptial-temporal node encoding (dotted green box), index with (b). Below the Attention-temporal aggregator (dotted yellow box), index with (c).
 ![framework](framework.png)
 
 ## Dataset and preprocessing
@@ -13,13 +13,13 @@ To address anomaly detection in dynamic networks, in this paper, we propose a no
   
 * [Digg](http://konect.cc/networks/munmun_digg_reply)
   
-* [Bitcoin-OTC](http://snap.stanford.edu/data/soc-sign-bitcoin-otc)
+* [email-Eu-core](https://snap.stanford.edu/data/email-Eu-core.html)
 
-* [Bitcoin-Alpha](http://snap.stanford.edu/data/soc-sign-bitcoin-alpha)
- 
 * [ia-contacts-dublin](https://networkrepository.com/ia-contacts-dublin.php)
 
-* [fb-forum](https://networkrepository.com/fb-forum.php)
+* [sx-mathoverflow](https://snap.stanford.edu/data/sx-mathoverflow.html)
+
+* [sx-askubuntu](https://snap.stanford.edu/data/sx-askubuntu.html)
 
 ## Usage
 ###  Training the CADDY Dynamic graph neural network
