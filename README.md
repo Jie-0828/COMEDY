@@ -24,7 +24,7 @@ The framework of COMEDY consists of four main components: the outdated informati
 ## Usage
 ###  Training the CADDY Dynamic graph neural network
 ```
-python train.py --data uci  --n_epoch 10  --lr 0.001  --hidden_size 32  --node_dim 8  --edge_agg mean  --ratio 0.3 --dropout 0  --anomaly_ratio 0.1  --threshold 500
+python train.py --data uci  --n_epoch 10  --lr 0.001  --hidden_size 32  --node_dim 8  --edge_agg mean  --ratio 0.3 --dropout 0  --anomaly_ratio 0.1  --threshold 500 --sampling 'str'
 ```
 
 ## Requirements
@@ -54,4 +54,5 @@ optional arguments:
   --dropout                                  dropout rate
   --anomaly_ratio                            the ratio of anomalous edges in the testing set
   --threshold                                the length of active node queue
+  --sampling                                 the method of negative sampling
 ```
