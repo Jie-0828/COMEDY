@@ -45,7 +45,7 @@ torch.cuda.manual_seed_all(seed)
 
 # Load dataset
 if dataset == 'UCI':
-    path = r'D:\model_C\dataset\UCI\out.opsahl-ucsocial'  # dataset pathpath
+    path = r''  # dataset pathpath
 
 
 edge_order,list_time_pos,set_node= dataloader.load_data_node(path,dataset,flag='positive')
