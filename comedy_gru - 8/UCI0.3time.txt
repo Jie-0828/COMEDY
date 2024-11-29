@@ -1,0 +1,34 @@
+Namespace(data='UCI', bs=32, n_epoch=10, lr=0.01, hidden_size=32, embedding_dims=8, edge_agg='mean', divide=0.3, dropout=0, alpha=2, threshold=10000, test_radio=0.1, weight_decay=0, seed=1, sampling='time')
+Namespace(data='UCI', bs=32, n_epoch=10, lr=0.01, hidden_size=32, embedding_dims=8, edge_agg='mean', divide=0.3, dropout=0, alpha=2, threshold=10000, test_radio=0.1, weight_decay=0, seed=1, sampling='time')
+Namespace(data='UCI', bs=32, n_epoch=10, lr=0.01, hidden_size=32, embedding_dims=8, edge_agg='mean', divide=0.3, dropout=0, alpha=2, threshold=10000, test_radio=0.1, weight_decay=0, seed=1, sampling='time')
+Namespace(data='UCI', bs=32, n_epoch=10, lr=0.001, hidden_size=32, embedding_dims=8, edge_agg='mean', divide=0.3, dropout=0, alpha=2, threshold=500, test_radio=0.1, weight_decay=0, seed=1, sampling='time')
+0 epoch----tensor(0.4981, grad_fn=<DivBackward0>)
+Namespace(data='UCI', bs=32, n_epoch=10, lr=0.001, hidden_size=32, embedding_dims=8, edge_agg='mean', divide=0.3, dropout=0, alpha=2, threshold=50, test_radio=0.1, weight_decay=0, seed=1, sampling='time')
+0 epoch----tensor(0.4877, grad_fn=<DivBackward0>)
+AUC:0.8684581836457936
+1 epoch----tensor(0.4763, grad_fn=<DivBackward0>)
+AUC:0.8879178859757645
+2 epoch----tensor(0.4872, grad_fn=<DivBackward0>)
+AUC:0.8719169075545615
+Namespace(data='UCI', bs=32, n_epoch=10, lr=0.001, hidden_size=32, embedding_dims=8, edge_agg='mean', divide=0.3, dropout=0, alpha=2, threshold=50, test_radio=0.1, weight_decay=0, seed=1, sampling='time')
+0 epoch----tensor(0.4877, grad_fn=<DivBackward0>)
+AUC:0.8684581836457936
+1 epoch----tensor(0.4763, grad_fn=<DivBackward0>)
+AUC:0.8879178859757645
+2 epoch----tensor(0.4872, grad_fn=<DivBackward0>)
+AUC:0.8719169075545615
+3 epoch----tensor(0.4961, grad_fn=<DivBackward0>)
+AUC:0.8775852078971578
+4 epoch----tensor(0.4890, grad_fn=<DivBackward0>)
+AUC:0.8535733439205051
+5 epoch----tensor(0.4714, grad_fn=<DivBackward0>)
+AUC:0.8075082922931734
+6 epoch----tensor(0.4830, grad_fn=<DivBackward0>)
+AUC:0.8194617592945057
+7 epoch----tensor(0.4754, grad_fn=<DivBackward0>)
+AUC:0.8436859367069535
+8 epoch----tensor(0.4757, grad_fn=<DivBackward0>)
+AUC:0.88374063709396
+9 epoch----tensor(0.4772, grad_fn=<DivBackward0>)
+AUC:0.8452776555164319
+
