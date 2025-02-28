@@ -21,19 +21,17 @@ from create_neg_edge_hist import negative_sample_hist, negative_sample_test_hist
 from create_neg_edge_str import  negative_sample_str, negative_sample_test_str
 from create_neg_edge_time import negative_sample_time, negative_sample_test_time
 from distance import BFS
-# from get_gc import get_GC
 from learn_graph import train_model, evaluate
-from model2 import Model
+from model import Model
 from option import args
 # Argument and global variables
 
 print(args)
 dataset = args.data
-divide=args.divide
-embedding_dims=args.embedding_dims
+divide=args.ratio
+embedding_dims=args.node_dim
 hidden_size=args.hidden_size
-batch_size=args.bs
-test_radio=args.test_radio
+test_radio=args.anomaly_radio
 
 
 #Random seed
