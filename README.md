@@ -3,7 +3,7 @@
 ## Introduction
 To address anomalous edge detection in dynamic networks, in this paper, we propose a novel  <u>**C**<u>ontinuous-time An <u>**OM**<u>aly  <u>**E**<u>dge detection framework in  <u>**DY**<u>namic networks **(COMEDY)**.
 
-The framework of COMEDY consists of four main components: the outdated information filter (blue box), the spatial-temporal encoding (green box), the attention-temporal aggregator (yellow box), and the anomaly detector (purple box). Below the overall architecture, index with (a). Below the Sptial-temporal node encoding (dotted green box), index with (b). Below the Attention-temporal aggregator (dotted yellow box), index with (c).
+The framework of COMEDY consists of four main components: the outdated information filter (blue box), the spatial-temporal node encoder (green box), the attention-temporal aggregator (yellow box), and the anomaly detector (purple box). Below the overall architecture, index with (a). Below the sptial-temporal node encoder (dotted green box), index with (b). Below the attention-temporal aggregator (dotted yellow box), index with (c).
 ![framework](framework.png)
 
 ## Dataset and preprocessing
@@ -24,7 +24,7 @@ The framework of COMEDY consists of four main components: the outdated informati
 ## Usage
 ###  Training the CADDY Dynamic graph neural network
 ```
-python train.py --data uci  --n_epoch 10  --lr 0.001  --hidden_size 32  --node_dim 8  --edge_agg mean  --ratio 0.3 --dropout 0  --anomaly_ratio 0.1  --threshold 500 --sampling 'str'
+python train.py --data uci  --n_epoch 10  --lr 0.001  --hidden_size 32  --node_dim 8  --edge_agg mean  --ratio 0.3 --dropout 0  --anomaly_ratio 0.1  --threshold 500 --sampling 'str' --seed 1
 ```
 
 ## Requirements
@@ -55,4 +55,5 @@ optional arguments:
   --anomaly_ratio                            the ratio of anomalous edges in the testing set
   --threshold                                the length of active node queue
   --sampling                                 the method of negative sampling
+  --seed                                     the random seed number
 ```
